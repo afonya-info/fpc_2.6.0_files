@@ -1,0 +1,5 @@
+program art;
+begin
+writeln(4);
+readln()
+end.

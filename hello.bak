@@ -1,0 +1,9 @@
+uses crt,charset;
+
+begin
+  setconsolecp(1251);
+  setconsoleoutputcp(1251);
+
+  writeln('Всем привет');
+  readln();
+end.

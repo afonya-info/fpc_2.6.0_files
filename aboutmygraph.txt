@@ -1,0 +1,15 @@
+Program getgmode;
+Uses Graph;
+
+Var
+    Driver, Mode: SmallInt;
+
+Begin
+    DetectGraph(Driver, Mode);
+    WriteLn('Драйвер: ', Driver, ', Графический режим: ', Mode);
+    ReadLn;
+    InitGraph(Driver, Mode, '');
+    WriteLn({'Разрешение: ', GetMaxX+1,'x',GetMaxY+1, ', Цветов: ',} GetMaxColor+1);
+    ReadLn;
+    CloseGraph;
+End.

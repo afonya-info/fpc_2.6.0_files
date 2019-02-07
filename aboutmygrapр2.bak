@@ -1,0 +1,29 @@
+Program demo16bitcolor;
+Uses Graph,crt;
+
+Var
+    Driver: SmallInt;  // Номер драйвера
+    Mode  : SmallInt;  // Номер графического режима
+    x, y, i, Color  : Integer;  // Координаты
+
+Begin
+    // Установка графического режима
+    driver:=15;
+    mode:=6;
+    InitGraph(Driver, Mode, '');
+    Color:=0;
+    y:=0;
+    For i:=0 To 63 Do
+    Begin
+        For x:=0 To 1023 Do
+        Begin
+            SetColor(Color);
+            Line(x, y, x, y+10);
+            Inc(Color);
+        End;
+        y:=y+12;
+    End;
+    delay(100000);
+    ReadLn;
+    CloseGraph;
+End.

@@ -1,0 +1,37 @@
+﻿program lab1;
+const eps = 0.00000000000001;{костыль ибо эвм как то странно хранит 
+вещестыенные числа}
+var x,y,h: real;
+BEGIN
+  x:=-11;
+  y:=0;
+  h:=0.2;
+  while (-11<=x)and(x<=8) do
+    if x + eps <-9 then
+     begin
+      y:= x - sin(x);
+      writeln('x = ',x:5:1,' f(x) = ',y:1:2);
+      x:=x+h;
+     end
+    else
+      if (-9<=x + eps) and (x + eps <1) then
+       begin
+        y:= 78+x;
+        writeln('x = ',x:5:1,' f(x) = ',y:1:2);
+        x:=x+h;
+       end
+      else
+        if (1<=x + eps )and(x + eps <6) then
+         begin
+          y:=2*sin(x);
+          writeln('x = ',x:5:1,' f(x) = ',y:1:2);
+          x:=x+h;
+         end
+        else
+         begin
+          y:= 83*25 - exp(ln(x)*(0.1*x));
+          writeln('x = ',x:5:1,' f(x) = ',y:1:2);
+          x:=x+h;
+         end;
+  readln();
+END.

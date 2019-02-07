@@ -1,0 +1,16 @@
+program art;
+  uses graph,wincrt,crt;
+
+var gd,gm:integer;
+    ox,oy,ch,col:integer;
+  begin
+    detectgraph(gd,gm);
+    initgraph(gd,gm,'');
+    ox:=trunc(getmaxx/2);
+    oy:=trunc(getmaxy/2);
+    setbkcolor(0);
+    setcolor(11);
+    line(ox,getmaxy-20,ox,20);
+    while wincrt.readkey<>#27 do
+      delay(100);
+  end.

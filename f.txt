@@ -1,0 +1,78 @@
+Program laba10a;
+uses crt;
+var
+ a,ai:array [1..100] of integer;
+ c:array [0..9] of string[100];
+ i,n,l,li,j,s,k,h,b:integer;
+ m:string;
+begin
+  clrscr;
+ Writeln('Input the number of elements in the array');
+ readln(n);
+ for i:=1 to n do
+ begin
+  Write('a[' ,i,']=');
+  readln(a[i]);
+ end;
+ for i:=1 to n do
+  ai[i]:=a[i];
+ Writeln('Origin array');
+ for i:=1 to n do
+  write(a[i], ' ');
+ l:=0;
+ b:=a[1];
+ while b>0 do
+ begin
+  inc(l);
+  b:=b div 10;
+ end;
+ for i:=1 to n do
+ begin
+  li:=0;
+  b:=a[i];
+  while b>0 do
+  begin
+   inc(li);
+   b:=b div 10;
+  end;
+  if li>l then
+   l:=li;     {l caMblu boLbLLIou pa3p9D}
+  end;
+ li:=1;
+ for j:=l downto 1 do
+ begin
+  for i:=1 to n do
+  begin
+   b:=a[i] div li mod 10;
+   str(i,m);
+   c[b]:=c[b]+m+' ';
+   //writeln(c[b]);
+   //delay(100);
+  end;
+  li:=li*10;
+  s:=1;
+  for i:=0 to 9 do
+  begin
+   while pos(' ',c[i])>0 do
+   begin
+    m:=copy(c[i],1,pos(' ',c[i])-1);
+    val(m,b,h);
+    a[s]:=ai[b];
+    inc(s);
+    delete(c[i],1,pos(' ',c[i]));
+    m:='';
+   end;
+   c[i]:='';
+  end;
+  for i:=1 to n do
+   ai[i]:=a[i];
+
+ end;
+ Writeln('noLy4uBLLIEuc9 macuB');
+ for i:=1 to n do
+  Write(a[i], ' ');
+ readln
+end
+a [38 15 152 4 9] n = 5
+
+

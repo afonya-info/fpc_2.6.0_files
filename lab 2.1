@@ -1,0 +1,47 @@
+Program art;
+uses
+charset;
+var
+a: array[1..1000000] of integer;
+n:string;
+i,digit,kol,n1:integer;
+flag,flag1 : boolean;
+begin
+  flag:=true;
+  n1:=0;
+  while flag do
+    begin
+      kol:=0;
+      readln(n);
+      for i:= 1 to length(n) do
+        if n[i] in ['0'..'9'] then
+          begin
+            case n[i] of
+              '0':digit:=0;
+              '1':digit:=1;
+              '2':digit:=2;
+              '3':digit:=3;
+              '4':digit:=4;
+              '5':digit:=5;
+              '6':digit:=6;
+              '7':digit:=7;
+              '8':digit:=8;
+              '9':digit:=9;
+            end;
+            n1:=n1*10+digit;
+            inc(kol);
+          end;
+      if length(n) = kol then
+        flag:=false
+      else
+        begin
+          flag:=true;
+          kol:=0;
+          writeln('Введите число!:');
+        end;
+    end;
+  writeln;
+  writeln;
+  writeln(n1);
+  readln;
+end.
