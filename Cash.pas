@@ -18,4 +18,4 @@ s:='';
   writeln('=========');
   WRITELN('fffff¯¯¯à¨¢¥â');
 readln();
-end.
+end.// git
