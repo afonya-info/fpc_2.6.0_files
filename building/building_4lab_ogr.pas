@@ -42,10 +42,14 @@ begin
 end;
 
 procedure enterborders;
+
+var 
+	entflag:boolean;
+
 begin
 	repeat 
   clrscr;
-  writeln('Please, enter boarders of integration(-40<=border<=40 ):');
+  writeln('Please, enter boarders of integration(conditions: 1)-40<=border<=40; 2)low<>high; 3) high-low>=3 ):');
   write('low boarder = ');
   readln(a);
   write('high boarder = ');
@@ -63,7 +67,17 @@ begin
     a := b;
     b := t;
   end;
-	until (a >= -40) and (b<=40);
+	if a = b then 
+		entflag:=false
+	else
+		entflag:=true;
+	
+	if (b-a)<3 then 
+		entflag:=false
+	else
+		entflag:=true;
+		
+	until (a >= -40) and (b<=40) and(entflag);
   writeln('press any key');
   readln;
 end;
@@ -406,6 +420,45 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение ма�
 		
 	end;
 	
+procedure	hatching(hmx,hmy,hwmx,hwmy:real);
+
+var
+	iha,jha,ihay:integer;
+	xgm,xgn,fxgn:real;
+	flagh:boolean;
+	
+begin
+	flagh:=true;
+	xgn:=a+1;
+	xgm:=xgn*hmx*hwmx;
+	fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*hmy*hwmy;
+	ihay:= oy - 1;
+	while (trunc(xgm) < b )and flagh do begin
+		if trunc(fxgn)<ihay then begin
+			xgn:=xgn+1;
+			xgm:=xgn*hmx*hwmx;
+			fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*hmy*hwmy;
+		end
+		else if trunc(fxgn) = ihay then begin
+			xgn:=xgn+1;
+			xgm:=xgn*hmx*hwmx;
+			fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*hmy*hwmy;
+		end
+		else begin
+			flagh:=false;
+		end;
+		setcolor(2);
+		xgn:=a;
+		xgm:=xgn*hmx*hwmx;
+		fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*hmy*hwmy;
+		line(trunc(a),oy,trunc(a),trunc(fxgn));
+		xgn:=a;
+		fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*hmy*hwmy;
+		line(trunc(b),oy,trunc(b),trunc(fxgn));
+		
+	end;
+end;
+	
 	
 procedure gra(scx,scy,scmx,scmy: real);
 	var dx,xgn,xgm,x1,y1,fxgn,fxgnt : real;
@@ -470,6 +523,7 @@ procedure gra(scx,scy,scmx,scmy: real);
 				end;}
 				lineto(xl4,yl4);
 			end;
+			hatching(scx,scy,scmx,scmy);// штриховка
 			
 			if fxgn >=130000 then 
 				vyly:=true
@@ -578,7 +632,7 @@ detectgraph(gd,gm);
 	line(0,oy,getmaxx,oy);
 	line(ox,0,ox,getmaxy);
 	
-	ix:=-8;// масштаб с индексом 5 mx[5] = 1/10
+	ix:=-5;// масштаб с индексом 5 mx[5] = 1/10
 	iy:=-20;
 	im:=0;
 	gra(mx[ix],my[iy],mm.x[im],mm.y[im]); // выведет график 
