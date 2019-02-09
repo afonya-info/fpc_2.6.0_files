@@ -1,9 +1,9 @@
 ﻿program art; {$D+,L+}
 
-uses crt,graph,wincrt;
+uses graph,wincrt,crt;
 
 const
-  c = 4;
+  c = 5;
   push = 112;
   unpush = 15;
   backcol = 7;
