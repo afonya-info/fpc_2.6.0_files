@@ -1,4 +1,4 @@
-program art;//ghоблыемы : ограничение по единице
+п»їprogram art;//ghРѕР±Р»С‹РµРјС‹ : РѕРіСЂР°РЅРёС‡РµРЅРёРµ РїРѕ РµРґРёРЅРёС†Рµ
 
 uses crt,graph,wincrt;
 
@@ -14,16 +14,16 @@ type
 	end;
 	
 var 
-	mx,my:mas;// вспомогательный массив для масшатбов
+	mx,my:mas;// РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РјР°СЃСЃРёРІ РґР»СЏ РјР°СЃС€Р°С‚Р±РѕРІ
 	mm:mmsc;
 	gd,gm:integer;
-  ox,oy,ch,col,i,a,b,x,y,y2,a1,a2,d,kol,ix,iy,im:integer;
-	m,j: real;
-	c: char;
+  ox,oy,i,xl4,yl4,ix,iy,im:integer;
+	j: real;
+	ch: char;
 	fkos,vylrx,vylox,vyly,vylyz,nnew:boolean;
   maxm:string;
 	
-procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
+procedure osi(ntx,nty,ntmx,ntmy:real);// РїРѕСЃР»С‹Р°С‚СЊ Р·Р°РЅС‡РµРЅРёРµ РјР°СЃС€С‚Р°Р±Р°
 	var iosi,xsrt,xstr_,ysrt,colo,dox,doy,shlen,shy,shx,stx,sty,begx,begy: integer;
 			dx,xgm,xgn,fxgn,fxgnt: real;
 			txn,txm,ty,res,tx,tyt,kost:string;
@@ -31,15 +31,15 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 	begin
 	foo:=true;
 	foox:=true;
-		if not fkos then// есил линии не выплзли тогда очищать экран, а если выползли значит я вызваю функцию как костыль 
+		if not fkos then// РµСЃРёР» Р»РёРЅРёРё РЅРµ РІС‹РїР»Р·Р»Рё С‚РѕРіРґР° РѕС‡РёС‰Р°С‚СЊ СЌРєСЂР°РЅ, Р° РµСЃР»Рё РІС‹РїРѕР»Р·Р»Рё Р·РЅР°С‡РёС‚ СЏ РІС‹Р·РІР°СЋ С„СѓРЅРєС†РёСЋ РєР°Рє РєРѕСЃС‚С‹Р»СЊ 
 			cleardevice;
 			
 		setcolor(2);
 		line(0,oy,getmaxx,oy);
 		line(ox,0,ox,getmaxy);
 		
-		shlen:=10;//длина штриха должна делиться на 2
-		shy:=oy - shlen div 2;// начальная точка штриха по у
+		shlen:=10;//РґР»РёРЅР° С€С‚СЂРёС…Р° РґРѕР»Р¶РЅР° РґРµР»РёС‚СЊСЃСЏ РЅР° 2
+		shy:=oy - shlen div 2;// РЅР°С‡Р°Р»СЊРЅР°СЏ С‚РѕС‡РєР° С€С‚СЂРёС…Р° РїРѕ Сѓ
 		shx:=ox - shlen div 2;
 		dox:=20;
 		xsrt:=ox + dox;
@@ -55,10 +55,10 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 		begy:=0;
 		while xgn<= 41  do
 			begin				
-				if (trunc(frac(xgn)*10) = 0) and (trunc(frac(xgn)*100) = 0)  then // число храниться не точно, такой костыль 
+				if (trunc(frac(xgn)*10) = 0) and (trunc(frac(xgn)*100) = 0)  then // С‡РёСЃР»Рѕ С…СЂР°РЅРёС‚СЊСЃСЏ РЅРµ С‚РѕС‡РЅРѕ, С‚Р°РєРѕР№ РєРѕСЃС‚С‹Р»СЊ 
 					begin
 						
-						xgm:=xgn*ntx*ntmx;//одновременно и по иксу и синхронное масштаиброание все учитывется одной формулой
+						xgm:=xgn*ntx*ntmx;//РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ Рё РїРѕ РёРєСЃСѓ Рё СЃРёРЅС…СЂРѕРЅРЅРѕРµ РјР°СЃС€С‚Р°РёР±СЂРѕР°РЅРёРµ РІСЃРµ СѓС‡РёС‚С‹РІРµС‚СЃСЏ РѕРґРЅРѕР№ С„РѕСЂРјСѓР»РѕР№
 						xsrt:=ox + trunc(xgm);
 						moveto(xsrt,shy);
 						linerel(0,shlen);
@@ -69,17 +69,17 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 						
 						
 						
-						if (tx = '40') and (stx < (getmaxx-20)) then //ограничение по 80
+						if (tx = '40') and (stx < (getmaxx-20)) then //РѕРіСЂР°РЅРёС‡РµРЅРёРµ РїРѕ 80
 							vylrx:=true
 						else	
 							vylrx:=false;
 							
-						if (trunc(xgn)=10) and (stx>(getmaxx)) then// ограничение по единице 
+						if (trunc(xgn)=10) and (stx>(getmaxx)) then// РѕРіСЂР°РЅРёС‡РµРЅРёРµ РїРѕ РµРґРёРЅРёС†Рµ 
 							nnew:=true;
 						if (trunc(xgn)=10) and (stx<(getmaxx)) and nnew then
 							nnew:=false;
 							
-						//---------Для минуса----------
+						//---------Р”Р»СЏ РјРёРЅСѓСЃР°----------
 						
 						settextjustify(1,2);
 						settextstyle(1,1,0);
@@ -104,7 +104,7 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 				settextjustify(0,2);
 				outtextxy(0+begx,0+begy,tx);
 				if begy + 5 < getmaxy then	
-					begy:=begy+10              /////// отладка
+					begy:=begy+10              /////// РѕС‚Р»Р°РґРєР°
 				else 
 					begin
 						begy:=0;
@@ -190,7 +190,7 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 					settextjustify(0,2);
 					outtextxy(0+begx,0+begy,res);
 					if begy + 15 < getmaxy then	
-						begy:=begy+10             ///////// отладка 
+						begy:=begy+10             ///////// РѕС‚Р»Р°РґРєР° 
 					else 
 					begin
 						begy:=0;
@@ -216,7 +216,7 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 				settextjustify(0,2);
 				outtextxy(0+begx,0+begy,tx);
 				if begy + 5 < getmaxy then	
-					begy:=begy+10             ///////// отладка 
+					begy:=begy+10             ///////// РѕС‚Р»Р°РґРєР° 
 				else 
 					begin
 						begy:=0;
@@ -235,13 +235,13 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 		{xgn:=0.01;
 		for iosi:= 1 to 8000 do
 			begin
-				xgm:=xgn*ntx*ntmx;//одновременно и по иксу и синхронное масштаиброание все учитывется одной формулой
+				xgm:=xgn*ntx*ntmx;//РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ Рё РїРѕ РёРєСЃСѓ Рё СЃРёРЅС…СЂРѕРЅРЅРѕРµ РјР°СЃС€С‚Р°РёР±СЂРѕР°РЅРёРµ РІСЃРµ СѓС‡РёС‚С‹РІРµС‚СЃСЏ РѕРґРЅРѕР№ С„РѕСЂРјСѓР»РѕР№
 				xsrt:=ox - trunc(xgm);
 				fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*nty*ntmy;
 				fxgnt:=(4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134);
 				ysrt:=oy - trunc(fxgn);
 				
-				if (trunc(frac(xgn)*10) = 0) and (trunc(frac(xgn)*100) = 0)  then // число храниться не точно, такой костыль 
+				if (trunc(frac(xgn)*10) = 0) and (trunc(frac(xgn)*100) = 0)  then // С‡РёСЃР»Рѕ С…СЂР°РЅРёС‚СЊСЃСЏ РЅРµ С‚РѕС‡РЅРѕ, С‚Р°РєРѕР№ РєРѕСЃС‚С‹Р»СЊ 
 					begin
 						moveto(shx,ysrt);
 						linerel(shlen,0);
@@ -257,7 +257,7 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 					settextjustify(0,2);
 					outtextxy(0+begx,0+begy,tx);
 					if begy + 5 < getmaxy then	
-						begy:=begy+10             ///////// отладка 
+						begy:=begy+10             ///////// РѕС‚Р»Р°РґРєР° 
 					else 
 					begin
 						begy:=0;
@@ -266,7 +266,7 @@ procedure osi(ntx,nty,ntmx,ntmy:real);// послыать занчение масштаба
 					setcolor(col);
 				end;
 						
-						settextjustify(2,2);// правое выравнивание
+						settextjustify(2,2);// РїСЂР°РІРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 						settextstyle(1,0,0);
 						tx:=''+tx;
 						outtextxy(stx,sty,tx);
@@ -287,16 +287,16 @@ procedure gra(scx,scy,scmx,scmy: real);
 			txn,txm,ty,res,tx:string;
 	begin
 		xgn:=-80;
-		dx:=0.5;// раньше dx = 0.01
+		dx:=0.5;// СЂР°РЅСЊС€Рµ dx = 0.01
 		col:=4;//red
 		setcolor(col);
 				
-		xgm:=xgn*scx*scmx;//одновременно и по иксу и синхронное масштаиброание все учитывется одной формулой
-		x:=ox + trunc(xgm);
+		xgm:=xgn*scx*scmx;//РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ Рё РїРѕ РёРєСЃСѓ Рё СЃРёРЅС…СЂРѕРЅРЅРѕРµ РјР°СЃС€С‚Р°РёР±СЂРѕР°РЅРёРµ РІСЃРµ СѓС‡РёС‚С‹РІРµС‚СЃСЏ РѕРґРЅРѕР№ С„РѕСЂРјСѓР»РѕР№
+		xl4:=ox + trunc(xgm);
 		fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*scy*scmy;
-		y:=oy - trunc(fxgn);
+		yl4:=oy - trunc(fxgn);
 		//putpixel(x,y,red);
-		moveto(x,y);
+		moveto(xl4,yl4);
 				
 		begx:=0;
 		begy:=0;
@@ -304,11 +304,11 @@ procedure gra(scx,scy,scmx,scmy: real);
 		while xgn<=80 do
 			begin
 				xgn:=xgn+dx;
-				xgm:=xgn*scx*scmx;//одновременно и по иксу и синхронное масштаиброание все учитывется одной формулой
-				x:=ox + trunc(xgm);
+				xgm:=xgn*scx*scmx;//РѕРґРЅРѕРІСЂРµРјРµРЅРЅРѕ Рё РїРѕ РёРєСЃСѓ Рё СЃРёРЅС…СЂРѕРЅРЅРѕРµ РјР°СЃС€С‚Р°РёР±СЂРѕР°РЅРёРµ РІСЃРµ СѓС‡РёС‚С‹РІРµС‚СЃСЏ РѕРґРЅРѕР№ С„РѕСЂРјСѓР»РѕР№
+				xl4:=ox + trunc(xgm);
 				fxgn := (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134)*scy*scmy;
 				fxgnt:= (4 * xgn * xgn * xgn - 25 * xgn * xgn + 491 * xgn - 2134);
-				y:=oy - trunc(fxgn);
+				yl4:=oy - trunc(fxgn);
 				
 				{if ((xgn>= -20) and (xgn <= 30)) then begin
 					setcolor(3);
@@ -320,7 +320,7 @@ procedure gra(scx,scy,scmx,scmy: real);
 					settextjustify(0,2);
 					outtextxy(0+begx,0+begy,res);
 					if begy + 15 < getmaxy then	
-						begy:=begy+10             ///////// отладка 
+						begy:=begy+10             ///////// РѕС‚Р»Р°РґРєР° 
 					else 
 					begin
 						begy:=0;
@@ -334,14 +334,14 @@ procedure gra(scx,scy,scmx,scmy: real);
 					settextjustify(0,2);
 					outtextxy(0+begx,0+begy,tx);
 					if begy + 5 < getmaxy then	
-						begy:=begy+10             ///////// отладка 
+						begy:=begy+10             ///////// РѕС‚Р»Р°РґРєР° 
 					else 
 					begin
 						begy:=0;
 						begx:=begx+100;
 					end;
 				end;}
-				lineto(x,y);
+				lineto(xl4,yl4);
 			end;
 			
 			if fxgn >=130000 then 
@@ -355,7 +355,7 @@ procedure gra(scx,scy,scmx,scmy: real);
 				vylyz:=false;
 				
 					str(fxgn:20:3,tx);
-					settextjustify(2,2);// правое выравнивание
+					settextjustify(2,2);// РїСЂР°РІРѕРµ РІС‹СЂР°РІРЅРёРІР°РЅРёРµ
 					settextstyle(1,0,2);
 					tx:=''+tx;
 					outtextxy(ox,oy,tx);
@@ -363,12 +363,12 @@ procedure gra(scx,scy,scmx,scmy: real);
 			
 		dlx:= ox - 1;
 		dly:= oy - 1;
-		for igra:= dlx downto 0 do//убирание лишних полос
+		for igra:= dlx downto 0 do//СѓР±РёСЂР°РЅРёРµ Р»РёС€РЅРёС… РїРѕР»РѕСЃ
 			begin
 				if getpixel(igra,dly) = col then
 					begin
 						setcolor(0);//black
-						bar(0,0,igra,getmaxy);//сотрет лишние линии
+						bar(0,0,igra,getmaxy);//СЃРѕС‚СЂРµС‚ Р»РёС€РЅРёРµ Р»РёРЅРёРё
 						fkos:=true;
 						osi(mx[ix],my[iy],mm.x[im],mm.y[im]);
 						fkos:=false;
@@ -376,7 +376,7 @@ procedure gra(scx,scy,scmx,scmy: real);
 			end;
 		
 		dlx:=ox +1;
-		while (getpixel(dlx,0) <> col) and (dlx <=getmaxx) do // ищет х графика в самом верху
+		while (getpixel(dlx,0) <> col) and (dlx <=getmaxx) do // РёС‰РµС‚ С… РіСЂР°С„РёРєР° РІ СЃР°РјРѕРј РІРµСЂС…Сѓ
 			inc(dlx);
 		setcolor(0);
 		bar(dlx+1,0,getmaxx,getmaxy);
@@ -450,17 +450,17 @@ begin
 	line(0,oy,getmaxx,oy);
 	line(ox,0,ox,getmaxy);
 	
-	ix:=-10;// масштаб с индексом 5 mx[5] = 1/10
+	ix:=-10;// РјР°СЃС€С‚Р°Р± СЃ РёРЅРґРµРєСЃРѕРј 5 mx[5] = 1/10
 	iy:=-20;
 	im:=0;
-	gra(mx[ix],my[iy],mm.x[im],mm.y[im]); // выведет график 
+	gra(mx[ix],my[iy],mm.x[im],mm.y[im]); // РІС‹РІРµРґРµС‚ РіСЂР°С„РёРє 
 	repeat 
-		c:= wincrt.readkey;
-		if c = #0 then
+		ch:= wincrt.readkey;
+		if ch = #0 then
 			begin
-				c:= wincrt.readkey;
-				case c of
-					#75:	begin// стр влево растяжение
+				ch:= wincrt.readkey;
+				case ch of
+					#75:	begin// СЃС‚СЂ РІР»РµРІРѕ СЂР°СЃС‚СЏР¶РµРЅРёРµ
 									if (not nnew) then begin
 										dec(ix);
 										osi(mx[ix],my[iy],mm.x[im],mm.y[im]);
@@ -482,7 +482,7 @@ begin
 									end;
 
 								end;
-					#80:	begin//стр вниз растяжение
+					#80:	begin//СЃС‚СЂ РІРЅРёР· СЂР°СЃС‚СЏР¶РµРЅРёРµ
 									if not vyly then begin
 										inc(iy);
 										osi(mx[ix],my[iy],mm.x[im],mm.y[im]);
@@ -490,7 +490,7 @@ begin
 									end;
 								
 								end;
-					#83:	begin// нормальный масштаб
+					#83:	begin// РЅРѕСЂРјР°Р»СЊРЅС‹Р№ РјР°СЃС€С‚Р°Р±
 									ix:=-10;
 									iy:=-20;
 									im:=0;
@@ -503,7 +503,7 @@ begin
 			end
 		else
 			begin
-				case c of 
+				case ch of 
 					'+':	begin
 									if not(nnew or vylyz ) then begin
 										dec(im);
@@ -520,7 +520,7 @@ begin
 								end;
 				end;
 			end;
-	until c=#27;
+	until ch=#27;
 		
   closegraph;
 end.
