@@ -1,4 +1,4 @@
-unit Vladik;
+unit unilis;
 
 interface
 
@@ -17,21 +17,20 @@ type
   end;
 
 var
-  p, first, last: Tlist;c, a, b: integer; s: string;
+  p, first, last: Tlist;
+  c, a, b: integer;
+  s: string;
 
-procedure Create(var first: tlist);
 procedure Createelem(var p: Tlist; i: inf);
 procedure Add(var p: Tlist; i: inf; var first: tlist);
 function Count(first: tlist): longint;
 procedure Print(first: Tlist);
 procedure Addpos(var first: tlist; k: longint; i: inf; p: tlist);
 procedure Free(var first: tlist);
-procedure Search(first: tlist; k: inf);
 procedure Delpos(var first: tList; k: longint);
 procedure Del(var p, temp: tlist);
 procedure Aaa(var kur, p, temp: tlist);
 procedure Delzn(var first: tlist; k: inf);
-procedure Sortik(var first: tlist);
 implementation
 
 procedure cvet(s: string; a, b: integer);
@@ -42,49 +41,11 @@ begin
   write(s);
   normvideo;
 end;
- //--------------------------------------------
-procedure Sortik(var first: tlist);
-var
-  n, k, l, c, i: longint;kur, temp: tlist;
-begin
-  if first = nil then
-  begin
-    textcolor(13);
-    writeln();
-    write('The list impty');
-    normvideo;
-    exit;
-  end;
-  n := count(first);
-  i := 1;
-  l := n - 1;
-  kur := first;
-  for i := 1 to n - 1 do
-  begin
-    c := 1;
-    repeat
-      if kur^.data > kur^.next^.data  then
-      begin
-        k := kur^.next^.data;
-        kur^.next^.data := kur^.data;
-        kur^.data := k;
-      end;
-      kur := kur^.next;
-      inc(c);
-    until c > l;
-    dec(l);
-    kur := first;
-  end;
-  textcolor(11);
-  textbackground(1);
-  writeln();
-  write('Items sorted');
-  normvideo;
-end;
-//-----------------------------------------------------------
 procedure Delzn(var first: tlist; k: inf);
 var
-  kur, temp, temp1: tlist;n, i, c: int64;  flag, f: boolean;
+  kur, temp, temp1: tlist;
+  n, i, c: int64;
+  flag, f: boolean;
 begin
   if first = nil then
   begin
@@ -111,7 +72,7 @@ begin
         first := nil;
         s := 'item removed';
         a := 14;
-        b := 5;
+        b := 0;
         cvet(s, a, b);
         exit;
       end
@@ -142,12 +103,12 @@ begin
     end
     else
       temp := temp^.next;
-  until (flag = true)  and (temp = first);
+  until (flag = true) and (temp = first);
   if f = true then
   begin
     s := 'item removed';
     a := 14;
-    b := 5;
+    b := 0;
     cvet(s, a, b);
   end
         else
@@ -156,20 +117,14 @@ begin
     write('Item not found');
   end;
 end;
-//------------------------------------------------
 
-//-------------------------------------------------
 procedure Del(var p, temp: tlist);
 begin
   p^.next := temp^.next;
   temp^.next^.prev := p;
 end;
 
-procedure Create(var first: tlist);
-begin
-  first := nil;
-end;
-//-------------------------------------------------------
+
 procedure Createelem(var p: Tlist; i: inf);
 begin
   new(p);
@@ -177,7 +132,8 @@ begin
   p^.next := nil;
   p^.prev := nil;
 end;
- //--------------------------------------------------
+
+
 procedure Add(var p: Tlist; i: inf; var first: tlist);
 begin
   Createelem(p, i);
@@ -189,22 +145,24 @@ begin
   end
   else
   begin
-    p^.next := first;
-    p^.prev := first^.prev;
-    first^.prev^.next := p;
-    first^.prev := p;
+    p^.next := first;// cycle list
+    p^.prev := first^.prev;//find last from first by cycling list
+    first^.prev^.next := p;// say to last that it is not last any more
+    first^.prev := p;//recycling
   end;
   s := 'item succesfully added';
   a := 13;
-  b := 3;
+  b := 0;
   cvet(s, a, b);
 end;
-//-------------------------------------------------------
+
+
 function Count(first: tlist): longint;
 var
-  kur: tlist;k: longint;
+  kur: tlist;
+  k: longint;
 begin
-  if first = nil  then
+  if first = nil then
   begin
     count := 0;
     textcolor(13);
@@ -221,7 +179,7 @@ begin
   until kur = first;
   count := k;
 end;
- //----------------------------------
+ 
 procedure Aaa(var kur, p, temp: tlist);
 begin
   kur^.next := p;
@@ -229,10 +187,11 @@ begin
   temp^.prev := p;
   p^.next := temp;
 end;
- //------------------------------------------------------------
+ 
 procedure Addpos(var first: tlist; k: longint; i: inf; p: tlist);
 var
-  kur, temp: tlist;n, c: longint;
+  kur, temp: tlist;
+  n, c: longint;
 begin
   if first = nil then
   begin
@@ -243,31 +202,31 @@ begin
     exit;
   end;
   n := Count(first);
-  if (k < 1) or  (k > n) then
+  if (k < 1) or (k > n) then
   begin
     writeln();
-    textcolor(1);
+    textcolor(1);//textattr
     write('Cannot insert into this positon');
     normvideo;
     exit;
   end;
-  //Createelem(p,i);
   n := count(first);
-  new(p);
+  Createelem(p,i);
+	{new(p);
   p^.data := i;
   p^.next := nil;
-  p^.prev := nil;
+  p^.prev := nil;}
   if k = 1 then
   begin
     temp := first;
     first := p;
-    first^.next := temp;
+    first^.next := temp;//----?-----
     temp^.prev^.next := first;
     first^.prev := temp^.prev;
     temp^.prev := first;
     s := 'item succesfully added';
     a := 10;
-    b := 3;
+    b := 0;
     cvet(s, a, b);
     exit;
   end;
@@ -292,7 +251,7 @@ begin
   kur^.next:=p;}
   s := 'item succesfully added';
   a := 15;
-  b := 5;
+  b := 0;
   cvet(s, a, b);
 end;
 //---------------------------------------------------
@@ -338,39 +297,14 @@ begin
   first := nil;
   s := 'clean list';
   a := 14;
-  b := 8;
+  b := 0;
   cvet(s, a, b);
-end;
-//---------------------------------------------------------
-procedure Search(first: tlist; k: inf);
-var
-  kur: tlist;
-begin
-  if first = nil then
-  begin
-    textcolor(13);
-    writeln();
-    write('The list impty');
-    normvideo;
-    exit;
-  end;
-  kur := first;
-  repeat
-    if kur^.data = k then
-    begin
-      writeln();
-      write('item', ' ', k, ' ', 'find');
-      exit;
-    end;
-    kur := kur^.next;
-  until kur = first;
-  writeln();
-  write('item', ' ', k, ' ', 'no find');
 end;
 //-----------------------------------------------------------------------
 procedure Delpos(var first: tList; k: longint);
 var
-  temp, kur: tlist;n, i: longint;
+  temp, kur: tlist;
+  n, i: longint;
 begin
   if first = nil then
   begin
@@ -381,7 +315,7 @@ begin
     exit;
   end;
   n := count(first);
-  if  (k < 1) or (k > n) then
+  if (k < 1) or (k > n) then
   begin
     writeln();
     write('cannot delete into this positon');
@@ -399,7 +333,7 @@ begin
       first := nil;
     s := 'item succesfully delete';
     a := 13;
-    b := 6;
+    b := 0;
     cvet(s, a, b);
     exit;
   end;
@@ -415,7 +349,7 @@ begin
    exit;
    end;   }
   kur := first;
-  for  i := 1 to k - 2 do
+  for i := 1 to k - 2 do
     kur := kur^.next;
   temp := kur^.next;
   del(kur, temp);
@@ -424,7 +358,7 @@ begin
   dispose(temp);
   s := 'item succesfully delete';
   a := 12;
-  b := 3;
+  b := 0;
   cvet(s, a, b);
 end;
 
