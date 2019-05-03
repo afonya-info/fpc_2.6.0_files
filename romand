@@ -1,6 +1,6 @@
 program komand;
 
-uses  crt, vladik{,windows};
+uses crt, unilis;
 
 type
   inf = int64;
@@ -11,7 +11,11 @@ type
   end;
 
 var
-  first: pointer;k: inf;rk: char;p: pointer; x, pos: integer;
+  first: pointer;
+  k: inf;
+  rk: char;
+  p: pointer;
+  x, pos: integer;
   c, i: byte;
   s, s1, s2, s3, s4: string;
   a: array[1..11] of string;
@@ -20,7 +24,8 @@ var
 //----------------------------------------------------------
 function Pro(s: string): boolean;
 var
-  c: integer;i: int64;
+  c: integer;
+  i: int64;
 begin
   pro := true;
   if length(s) > 10 then
@@ -43,10 +48,11 @@ end;
 procedure Spisok2(var s: string; var poshist: integer);
 begin
   inc(poshist);
-  delline;
   s := '';
   s := a[poshist];
   gotoxy(1, wherey);
+	textcolor(15);
+	delline;
   write(s);
 end;
 //-------------------------------------------------------------
@@ -54,10 +60,11 @@ procedure Spisok(var s: string; var poshist: integer);
 begin
   dec(poshist);
   if poshist = 0 then poshist := 1;
-  delline;
   s := '';
   s := a[poshist];
   gotoxy(1, wherey);
+	textcolor(15);
+	delline;
   write(s);
 end;
 //-------------------------------------------------------------
@@ -66,7 +73,8 @@ begin
   inc(hist);
   if hist < 11 then
     a[hist] := s
-  else
+  
+	else
   begin
     for i := 1 to 9 do
       a[i] := a[i + 1];
@@ -148,34 +156,26 @@ begin
   l := length(s);
   Delneprobel(i, l);
   s4 := copy(s, 1, i);
-  //writeln();
-  //writeln(s1);
-  //writeln(s2);
-  //l1:=length(s2);
-  //writeln(l1);
-  //writeln(s3);
-  //writeln(s4); }
+
   
 end;
 //------------------------------------------------------------
 procedure Help();
 begin
   writeln();
-  textcolor(14);
-  writeln('Ring double linked list');
+  textcolor(50);
+  writeln('Beconnected ring list');
   writeln('        "Help"                    |Help and menu');
   writeln('        "Add a"                   |Add number a to list ');
   writeln('        "Addpos a,b"              |Add on position a item  b');
   writeln('        "Delpos a"                |Del number in positin a ');
-  writeln('        "Delzn a"                 |Del number a to list');
+  writeln('        "Delzn a"               |Del all numbers a from list');
   writeln('        "Print"                   |Display the list');
   writeln('        "Free"                    |Clear the list');
   writeln('        "Clear"                   |Clear display');
   writeln('        "Count"                   |Count items in list ');
-  writeln('        "Sort"                    |Sorting items in list');
   writeln('          Tab                     |Autocompletion');
   writeln('           Del                    |Delete string');
-  //writeln(                del               |Delete string     ');
   writeln('Press arrow UP                    |Back to the last commands');
   writeln('        "Exit" and esc            |Exit from the program  ')
 end;
@@ -188,18 +188,11 @@ begin
   writeln();
   writeln('Count items=', c);
 end;
-{Function Pr(s:string):boolean;
-begin
-if s[1]='-' then
-  begin
-       if length(s)>5 then pr:=false
-         else  if s[1]in pr1 and
 
-end;}
-//-------------------------------------------------------------
 procedure addd(s2: string);
 var
-  c, k, l, i: integer;f: boolean;
+  c, k, l, i: integer;
+  f: boolean;
 begin
   i := 0;
   k := 0;
@@ -215,34 +208,16 @@ begin
     writeln();
     textcolor(4);
     write('Error');
+		help();
     normvideo;
   end;
 end;
-//-------------------------------------------------
-{Function Pro(s:string;var k:integer):boolean;
-var c:integer;i:int64;
-begin
-pro:=true;
-if length(s)>10 then
-pro:=false
-else
-begin
-val(s2,i,c);
-if (c<>0)
-then
-pro:=false
-else
- begin
-   if(i>32767) or (i<-32600) then
-     pro:=false;
- end;
 
-end;
-end;   }
-//----------------------------------------
 procedure addp(s2, s3, s4: string);
 var
-  c, k: integer;i, d: int64;f: boolean;
+  c, k: integer;
+  i, d: int64;
+  f: boolean;
 begin
   i := 0;
   k := 0;
@@ -260,76 +235,16 @@ begin
     inc(k)
   else
     val(s4, d, c);
-  {if length(s2)>10 then
-  inc(k)
-  else
-  begin
-  val(s2,i,c);
-  if (c<>0)
-  then
-  inc(k)
-  else
-   begin
-     if(i>32767) or (i<-32600) then
-       inc(k);
-   end;
-  end;  }
-  
-  { d:=0;
-  val(s4,i,c);
-  if (c<>0)
-  then
-  inc(k)
-  else
-   begin
-     if(d>32767) or (d<-32600) then
-       inc(k);
-   end;  }
-  if k = 0 then  begin addpos(first, i, d, p);   end
-  else begin writeln(); write('Error'); end
+
+  if k = 0 then begin addpos(first, i, d, p); end
+  else begin writeln(); write('Error');help(); end
 end;
 
-{if s3=',' then
-begin
-val(s2,i,c);
-if (c<>0)and((i>32767) or (i<-32768))  then
-begin
-inc(k);
-writeln('tutu',k);
-end;
-val(s4,d,c);
-if (c<>0) and ((i>32767) or(i<-32768)) then
-inc(k);
-if k=0 then
-begin
-writeln('vcc');
-addpos(first,i,d,p);
-end
-else begin writeln(); write('Error'); end;
-end
-else begin writeln(); write(' Error'); end;
-end;}
-//--------------------------------------------
-procedure Sea(s2: string);
-var
-  i, c, k: integer;f: boolean;
-begin
-  k := 0;
-  i := 0;
-  f := pro(s2);
-  if f = false then inc(k);
-  writeln(k);
-  if k = 0 then
-  begin
-    val(s2, i, c);
-    search(first, i);
-  end
-  else begin writeln(); write('Error');  end;
-end;
 //---------------------------------------
 procedure delp(s2: string);
 var
-  i, k, c: integer;f: boolean;
+  i, k, c: integer;
+  f: boolean;
 begin
   i := 0;
   k := 0;
@@ -340,12 +255,13 @@ begin
     val(s2, i, c);
     delpos(first, i);
   end
-  else begin writeln(); write('Error');  end;
+  else begin writeln(); write('Error');help(); end;
 end;
-//--------------------------------------
+//--------------------------------------Sortik
 procedure delz(s2: string);
 var
-  i, c, k: integer;f: boolean;
+  i, c, k: integer;
+  f: boolean;
 begin
   i := 0;
   k := 0;
@@ -356,13 +272,12 @@ begin
     val(s2, i, c);
     delzn(first, i);
   end
-  else begin writeln(); write('Error');  end;
+  else begin writeln(); write('Error'); help(); end;
 end;
 //-------------------------------------------
 procedure Centr(s1, s2, s3, s4: string);
 begin
   case s1 of
-    'sort': sortik(first);
     'help': help();
     'clear': clrscr;
     'free': free(first);
@@ -370,11 +285,10 @@ begin
     'count': coun;
     'add': addd(s2);
     'addpos': addp(s2, s3, s4);
-    'search': sea(s2);
     'delpos': delp(s2);
     'delzn': delz(s2);
     'exit': rk := #27
-  else begin textcolor(8); writeln(); writeln('Unknow kommand'); normvideo;  end;
+  else begin help(); normvideo; end;
   end;
 end;
 //-------------------------------------------------------------
@@ -410,7 +324,8 @@ begin
 //--------------------------------------------------------
 procedure Dop(var s: string);
 var
-  i: integer; s1: string;
+  i: integer;
+  s1: string;
 begin
   i := length(s);
   while (s[i] = ' ') do
@@ -419,7 +334,7 @@ begin
     dec(i);
   end;
   i := length(s);
-  while  (s[i] <> ' ') and (i > 0) do
+  while (s[i] <> ' ') and (i > 0) do
     dec(i);
   s1 := copy(s, i + 1, length(s) - i);
   i := length(s1);
@@ -430,13 +345,12 @@ begin
     'h', 'he', 'hel': s := 'help';
     'f', 'fr', 'fre': s := 'free';
     'c', 'cl', 'cle', 'clea': s := 'clear';
-    's', 'se', 'sea', 'sear', 'searc': s := 'search';
     'd', 'de', 'del', 'delp', 'delpo': s := 'delpos';
     'co', 'cou', 'coun': s := 'count';
     'delz': s := 'delzn';
-    'so', 'sor': s := 'sort';
     'e', 'ex', 'exi': s := 'exit';
   end;
+	textcolor(15);
   delline;
   gotoxy(1, wherey);
   write(s);
@@ -444,65 +358,87 @@ end;
  //----------------------------------------------------------------------
 procedure Vspliv(s: string; x: integer);
 var
-  pos, y: integer;s1: string;
+  pos, y: integer;
+  s1: string;
+	flagvs:boolean;
 begin
   y := wherey;
   s1 := '';
-  textcolor(14);
+	flagvs:=false;
+  textcolor(8);
   case s of
-    'a', 'ad': s1 := 'add';
-    'p', 'pr', 'pri', 'prin': s1 := 'print';
-    'addp', 'addpo': s1 := 'addpos';
-    'h', 'he', 'hel': s1 := 'help';
-    'f', 'fr', 'fre': s1 := 'free';
-    'c', 'cl', 'cle', 'clea': s1 := 'clear';
-    's', 'se', 'sea', 'sear', 'searc': s1 := 'search';
-    'd', 'de', 'del', 'delp', 'delpo': s1 := 'delpos';
-    'co', 'cou', 'coun': s1 := 'count';
+    'a': s1 := 'dd';
+		'ad': s1 := 'd';
+    'p' : s1 := 'rint';
+		'pr': s1 := 'int';
+		'pri': s1 := 'nt';
+		'prin': s1 := 't';
+    'addp': s1 := 'os';
+		'addpo': s1 := 's';
+    'h': s1 := 'elp';
+		'he': s1 := 'lp';
+		'hel': s1 := 'p';
+    'f': s1 := 'ree';
+		'fr': s1 := 'ee';
+		'fre': s1 := 'e';
+    'c': s1 := 'lear';
+		'cl': s1 := 'ear';
+		'cle': s1 := 'ar';
+		'clea': s1 := 'r';
+		'co' : s1 := 'unt';
+		'cou' : s1 := 'nt';
+		'coun': s1 := 't';
+    'd': s1 := 'elpos';
+		'de': s1 := 'lpos';
+		'del': s1 := 'pos';
+		'delp': s1 := 'os';
+		'delpo': s1 := 's';
     'delz': s1 := 'delzn';
-    'so', 'sor': s1 := 'sort';
-    'e', 'ex', 'exi': s1 := 'exit';
+    'e': s1 := 'xit';
+		'ex': s1 := 'it';
+		'exi': s1 := 't';
+		
+	else flagvs:=true;
+		
   end;
-  gotoxy(90, wherey);
+	if flagvs then
+	begin
+		delline;
+		gotoxy(1, wherey);
+		textcolor(15);
+		write(s);
+	end
+	
+	else 
+	begin
+  gotoxy(wherex , wherey);
   write(s1);
   gotoxy(x + 1, wherey);
   normvideo;
+	end;
 end;
 
 procedure Delstr(var s: string);
 begin
   s := '';
-  delline();
+  delline;
   gotoxy(1, wherey);
 end;
 //-------------------------------------------------------
-procedure Vvod();
-begin
-  textcolor(14);
-  writeln('                                          Ring double linked list');
-  textcolor(13);
-  writeln('                                To run the command reference, enter "help"');
-  normvideo;
-  writeln('                                          Things start work click enter');
-  readln();
-  clrscr;
-  
-end;
+
 
 begin
-  //SetConsoleCP(1251);
-  //SetConsoleOutputCP(1251);
-  clrscr;
-  vvod;
-  poshist := 0;
-  hist := 0;
-  flag := false;
+	clrscr;
+	writeln('--------Beconnected ring list----------');
+	poshist := 0;
+	hist := 0;
+	flag := false;
   repeat
     x := wherex;
     if length(s) > 90 then
     begin
       writeln();
-      writeln('bust');
+      writeln('Try again');
       s := '';
       gotoxy(1, wherey);
       x := 1;
@@ -513,9 +449,9 @@ begin
       rk := readkey;
       case rk of
         #75: begin if x > 1 then begin gotoxy(wherex - 1, wherey); end; end;
-        #77:  begin if x <= length(s) then begin gotoxy(wherex + 1, wherey); end; end;
+        #77: begin if x <= length(s) then begin gotoxy(wherex + 1, wherey); end; end;
         #72: begin if poshist > 0 then begin spisok(s, poshist); end; end;
-        #80:  begin if(poshist < hist) then begin spisok2(s, poshist); end; end;
+        #80: begin if(poshist < hist) then begin spisok2(s, poshist); end; end;
         #83: begin delstr(s); end;
       end;
     end
@@ -529,6 +465,7 @@ begin
         begin
           if ((rk > #31) and (rk < #127)) or ((rk > #192) and (rk < #255)) then
           begin
+						textcolor(15);
             insert(rk, s, wherex);
             s := lowercase(s);
             delline;
